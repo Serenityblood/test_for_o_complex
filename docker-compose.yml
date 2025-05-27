@@ -1,0 +1,40 @@
+services:
+  db:
+    image: postgres
+    restart: always
+    expose:
+      - '5432'
+    volumes:
+      - postgres_data:/var/lib/postgresql/data/
+    env_file:
+      - ./.env
+    healthcheck:
+      test: [ 'CMD-SHELL', 'pg_isready -U postgres -d postgres' ]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  backend:
+    build:
+      context: ./
+      dockerfile: ./backend/Dockerfile
+    restart: always
+    container_name: backend
+    depends_on:
+      - db
+    ports:
+      - '127.0.0.1:${BACKEND_PORT}:8000'
+    env_file:
+      - ./.env
+    command:
+      sh -c "python manage.py migrate &&
+      python manage.py parse_cities &&
+      python manage.py collectstatic --noinput &&
+      uvicorn backend.asgi:application --host 0.0.0.0 --port 8000 --lifespan off"
+    volumes:
+      - static_value:/app/static/
+
+
+volumes:
+  postgres_data:
+  static_value:

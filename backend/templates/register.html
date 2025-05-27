@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Register</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container mt-5">
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="text-center">Регистрация</h3>
+                    </div>
+                    <div class="card-body">
+                        <form method="post">
+                            {% csrf_token %}
+                            <div class="form-group">
+                                <label for="username">Никнейм</label>
+                                {{form.username}}
+                            </div>
+                            <div class="form-group">
+                                <label for="email">Имейл</label>
+                                {{form.email}}
+                            </div>
+                            <div class="form-group">
+                                <label for="password1">Пароль</label>
+                                {{ form.password1 }}
+                            </div>
+                            <div class="form-group">
+                                <label for="password2">Подтверждение пароля</label>
+                                {{ form.password2 }}
+                            </div>
+                            <button type="submit" class="btn btn-primary btn-block">Зарегистрироваться</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
