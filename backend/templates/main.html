@@ -48,11 +48,13 @@
                             <div class="alert alert-success" role="alert">
                                 <h4 class="alert-heading">Погода в городе {{city}} на текущий момент:</h4>
                                 <p>Температура: {{ weather.current.temperature }}</p>
+                                <p>Условия: {{ weather.current.weather_cond }}</p>
                                 <h4 class="alert-heading">Погода в городе {{city}} за сутки:</h4>
                                 <br>
                                 {% for hour in weather.hourly %}
                                 <p>Время: {{hour.time}}</p>
                                 <p>Температура: {{hour.temperature}}</p>
+                                <p>Условия: {{ hour.weather_cond }}</p>
                                 <br>
                                 {%endfor%}
                             </div>

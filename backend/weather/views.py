@@ -1,4 +1,5 @@
 import datetime
+from django.conf import settings
 from django.shortcuts import render
 from django.http import HttpRequest
 
@@ -43,10 +44,11 @@ def main(request: HttpRequest):
             new_hourly = []
             hourly = weather_info['hourly']
             i = 0
-            while i < len(hourly['time']) and i < len(hourly['temperature']):
-                new_hourly.append({"time": datetime.datetime.fromisoformat(hourly["time"][i]), "temperature": hourly["temperature"][i]})
+            while i < len(hourly['time']) and i < len(hourly['temperature']) and i < len(hourly['weather_code']):
+                new_hourly.append({"time": datetime.datetime.fromisoformat(hourly["time"][i]), "temperature": hourly["temperature"][i], "weather_cond": settings.WEATHER_CODES.get(hourly["weather_code"][i])})
                 i += 1
             weather_info["hourly"] = new_hourly
+            weather_info["current"].update({"weather_cond": settings.WEATHER_CODES.get(weather_info["current"]["weather_code"])})
             return render(
                 request,
                 "main.html",
