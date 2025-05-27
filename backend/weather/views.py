@@ -1,3 +1,4 @@
+import datetime
 from django.shortcuts import render
 from django.http import HttpRequest
 
@@ -39,6 +40,13 @@ def main(request: HttpRequest):
                     history.search_counter += 1
                     history.save()
             # Передаем данные о погоде и городе в шаблон
+            new_hourly = []
+            hourly = weather_info['hourly']
+            i = 0
+            while i < len(hourly['time']) and i < len(hourly['temperature']):
+                new_hourly.append({"time": datetime.datetime.fromisoformat(hourly["time"][i]), "temperature": hourly["temperature"][i]})
+                i += 1
+            weather_info["hourly"] = new_hourly
             return render(
                 request,
                 "main.html",

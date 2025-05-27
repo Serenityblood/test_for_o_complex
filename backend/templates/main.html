@@ -46,8 +46,15 @@
                         <!-- Отображаем информацию о погоде, если она есть -->
                         {% if weather %}
                             <div class="alert alert-success" role="alert">
-                                <h4 class="alert-heading">Погода в городе {{city}}</h4>
+                                <h4 class="alert-heading">Погода в городе {{city}} на текущий момент:</h4>
                                 <p>Температура: {{ weather.current.temperature }}</p>
+                                <h4 class="alert-heading">Погода в городе {{city}} за сутки:</h4>
+                                <br>
+                                {% for hour in weather.hourly %}
+                                <p>Время: {{hour.time}}</p>
+                                <p>Температура: {{hour.temperature}}</p>
+                                <br>
+                                {%endfor%}
                             </div>
                         {% endif %}
                         <form method="post">
