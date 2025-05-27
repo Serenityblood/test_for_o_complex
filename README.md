@@ -61,7 +61,7 @@ http://127.0.0.1:8000/api/v1/redoc/
 
 ### Стэк:
 ```bazaar
-Django, drf, drf-spectacular, requests, pytest, PostgresQL, Docker, pipenv
+Django, drf, drf-spectacular, requests, pytest, black, PostgresQL, Docker, pipenv
 ```
 
 ## Автор
